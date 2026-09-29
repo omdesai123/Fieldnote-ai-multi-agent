@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fieldnote — AI Research Desk</title>
+<link rel="icon" href="data:," />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead__inner">
+    <div class="masthead__title">
+      <i class="fa-solid fa-feather-pointed"></i>
+      <span>Fieldnote</span>
+    </div>
+    <p class="masthead__tagline">An automated research desk — search, read, draft, review.</p>
+  </div>
+</header>
+
+<main class="page">
+
+  <!-- HERO / INPUT -->
+  <section class="brief">
+    <h1 class="brief__headline">Give it a question.<br>It comes back with a dossier.</h1>
+    <p class="brief__sub">
+      Fieldnote runs four agents in sequence — a searcher, a reader, a writer and a critic —
+      and hands you a sourced report along with an honest review of its own work.
+    </p>
+
+    <form id="research-form" class="slip" autocomplete="off">
+      <label for="topic" class="slip__label">Research topic</label>
+      <div class="slip__row">
+        <input
+          type="text"
+          id="topic"
+          name="topic"
+          placeholder="e.g. Solid-state batteries in consumer electronics"
+          minlength="3"
+          maxlength="300"
+          required
+        />
+        <button type="submit" id="submit-btn" class="btn btn--primary">
+          <span class="btn__label">Begin research</span>
+          <i class="fa-solid fa-arrow-right-long"></i>
+        </button>
+      </div>
+      <p class="slip__hint">Takes a minute or two — four agents are doing real work.</p>
+    </form>
+
+    <div id="error-banner" class="banner banner--error" hidden>
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span id="error-text"></span>
+    </div>
+  </section>
+
+  <!-- PROGRESS TRACKER -->
+  <section id="tracker" class="tracker" hidden>
+    <ol class="tracker__steps">
+      <li class="tracker__step" data-step="search">
+        <span class="tracker__dot"><i class="fa-solid fa-magnifying-glass"></i></span>
+        <span class="tracker__label">Search</span>
+      </li>
+      <li class="tracker__step" data-step="read">
+        <span class="tracker__dot"><i class="fa-solid fa-book-open"></i></span>
+        <span class="tracker__label">Read</span>
+      </li>
+      <li class="tracker__step" data-step="draft">
+        <span class="tracker__dot"><i class="fa-solid fa-pen-nib"></i></span>
+        <span class="tracker__label">Draft</span>
+      </li>
+      <li class="tracker__step" data-step="review">
+        <span class="tracker__dot"><i class="fa-solid fa-stamp"></i></span>
+        <span class="tracker__label">Review</span>
+      </li>
+    </ol>
+    <p class="tracker__status" id="tracker-status">Searching the web for current sources…</p>
+  </section>
+
+  <!-- RESULTS DOSSIER -->
+  <section id="dossier" class="dossier" hidden>
+
+    <div class="dossier__head">
+      <h2 id="dossier-topic" class="dossier__title"></h2>
+      <button id="download-btn" class="btn btn--ghost">
+        <i class="fa-solid fa-download"></i>
+        <span>Download report</span>
+      </button>
+    </div>
+
+    <div class="folder">
+      <div class="folder__tabs" role="tablist">
+        <button class="folder__tab is-active" role="tab" data-target="panel-report">Report</button>
+        <button class="folder__tab" role="tab" data-target="panel-review">Critic review</button>
+        <button class="folder__tab" role="tab" data-target="panel-search">Search results</button>
+        <button class="folder__tab" role="tab" data-target="panel-source">Scraped source</button>
+      </div>
+
+      <div class="folder__body">
+        <div id="panel-report" class="panel is-active">
+          <pre id="report-content" class="panel__text"></pre>
+        </div>
+        <div id="panel-review" class="panel">
+          <pre id="review-content" class="panel__text"></pre>
+        </div>
+        <div id="panel-search" class="panel">
+          <pre id="search-content" class="panel__text"></pre>
+        </div>
+        <div id="panel-source" class="panel">
+          <pre id="source-content" class="panel__text"></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <p>Fieldnote runs on your own LangChain pipeline — nothing here changes how the agents think.</p>
+</footer>
+
+<script src="/static/js/script.js"></script>
+</body>
+</html>
